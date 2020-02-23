@@ -23,7 +23,7 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbarTogglerDemo01">
 					<div class="d-lg-none d-flex justify-content-between px-4 py-3 align-items-center">
-						<img src="images/letstudylogo.png" class="logo-mobile-menu" alt="logo">
+						<strong>LetStudy</strong>.Online
 						<a href="javascript:;" class="close-menu"><i class="mdi mdi-close"></i></a>
 					</div>
 					<ul class="navbar-nav ml-auto align-items-center">
@@ -334,7 +334,8 @@
 									</div>
 									<div class="col-sm-12">
 										<div class="form-group">
-											<input name="text" class="form-control" placeholder="College Name">
+											<input name="text" class="form-control" placeholder="College Name" list="school-select">
+											<datalist id="school-select"></datalist>
 										</div>
 									</div>
 									<div class="col-sm-12">
@@ -374,5 +375,25 @@
 		<script src="vendors/aos/js/aos.js"></script>
 		<script src="vendors/jquery-flipster/js/jquery.flipster.min.js"></script>
 		<script src="js/template.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.8/jquery.csv.min.js"></script>
+		<script>
+		$.ajax({
+		    url: "/schools.csv",
+		    async: false,
+		    success: function (csvd) {
+		        data = $.csv.toArrays(csvd);
+		    },
+		    dataType: "text",
+		    complete: function () {
+			   data.forEach(addItem);
+
+		    }
+		});
+		function addItem(item){
+			var optionNode =  document.createElement("option");
+   			optionNode.value = item;
+			document.getElementById('school-select').append(optionNode)
+		}
+		</script>
 	</body>
 </html>
